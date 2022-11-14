@@ -2,9 +2,11 @@
 
 {% block content %}
 <div>
-    {% for friend in object %}
-    <h1>{{friend.name}}</h1>
-    <p>{{friend.description}}</p>
-    {% endfor %}
+    <h1>{{object.name}}</h1>
+    <p>{{object.description}}</p>
+    {% for post in posts %}
+        {{post.name}}
+        {{post.description}}
+    {%endfor%}
 </div>
 {% block content %}
