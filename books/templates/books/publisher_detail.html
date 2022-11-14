@@ -1,0 +1,14 @@
+
+
+{% extends 'books/base_books.html' %}
+{% block content %}
+  <h2 style="color:red;">Publisher Detail</h2>
+
+  <ul>
+    <h2>{{ object.title }}</h2>
+
+    Address : {{ object.address }}
+    <br>
+    Website : {{ object.website }}
+  </ul>
+{% endblock %}

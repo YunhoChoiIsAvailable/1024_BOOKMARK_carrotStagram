@@ -1,0 +1,12 @@
+{% extends 'home.html' %}
+
+{% block title %} IASA site {% endblock %}
+{% block titleOnSite %} <h1>IASA site</h1>
+{% endblock %}
+
+{% block content %}
+<h2>bookmark list</h2>
+    {% for bookmark in bookmark_list %}
+        <a href = "{% url 'bookmark:detail' bookmark.id %}">{{bookmark.title}}</a> <br>
+    {% endfor %}
+{% endblock %}

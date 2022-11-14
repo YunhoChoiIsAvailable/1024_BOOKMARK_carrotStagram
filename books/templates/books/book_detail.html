@@ -1,0 +1,17 @@
+{% extends 'books/base_books.html' %}
+{% block content %}
+  <h2>Book Detail</h2>
+
+  <ul>
+    <h2>{{ object.title }}</h2>
+
+    Authors:
+    {% for author in object.authors.all %}
+      {{author.name }}
+    {% endfor %}
+
+    <br>
+    Publisher : {{ object.publisher }} <br>
+    Publication date : {{ object.publication_date }}
+  </ul>
+{% endblock %}

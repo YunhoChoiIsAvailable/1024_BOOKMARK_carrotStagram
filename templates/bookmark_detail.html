@@ -1,0 +1,9 @@
+{% extends 'home.html' %}
+
+{% block title %} bookmark detail {% endblock %}
+{% block titleOnSite %} BookMark Detail {% endblock %}
+
+{% block content %}
+    <br>
+    {{object.title}} : <a href="{{object.url}}">{{object.url}}</a>
+{% endblock %}

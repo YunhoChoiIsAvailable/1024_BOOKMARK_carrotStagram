@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}MySite{% endblock %}</title>
+</head>
+<body>
+    <h1 style="background-color:powderblue;" style="color:purple;">ChoiYunHo</h1>
+    <h1 style="color:blue;">Made This</h1>
+
+    <h3>herecomesthetitleonsite...</h3>
+    {% block titleOnSite %}
+    <h1 style="background-color:powderblue;">Base HTML</h1>
+    {% endblock %}
+
+    <div id="sidebar">
+        {% block sidebar %}
+        <ul>
+            <li> <a href="/">Project_Home</a></li>
+            <li> <a href="/admin">Project_Admin</a></li>
+        </ul>
+        {% endblock %}
+    </div>
+
+    <div id="content">
+        <h3>here comes the content.....</h3>
+        {% block content %}
+
+        {% endblock %}
+    </div>
+</body>
+</html>
