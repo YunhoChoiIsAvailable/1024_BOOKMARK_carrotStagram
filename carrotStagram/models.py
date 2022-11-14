@@ -22,15 +22,15 @@ class Post(models.Model):
 class Likes(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     count = models.IntegerField(max_length=10)
-    people = models.ManyToManyField(Account, on_delete=models.CASCADE)
+    people = models.ManyToManyField(Account)
 
 class Comments(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    person = models.ManyToManyField(Account, on_delete=models.CASCADE)
+    person = models.ManyToManyField(Account)
     content = models.CharField(max_length=500)
 
 class CommentLikes(models.Model):
     comment = models. ForeignKey(Comments, on_delete=models.CASCADE)
-    people = models.ManyToManyField(Account, on_delete=models.CASCADE)
+    people = models.ManyToManyField(Account)
     count = models.IntegerField(max_length=10)
 
