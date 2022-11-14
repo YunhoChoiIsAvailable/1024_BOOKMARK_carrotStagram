@@ -7,10 +7,12 @@ class Account(models.Model):
     account_img = models.ImageField(upload_to='profiles_imgs')
     follow_set = models.ManyToManyField('self', blank = True)
     following_set = models.ManyToManyField('self', blank = True)
+    password = models.CharField(max_length=50)
+
 
 class Post(models.Model):
     name = models.CharField(max_length=50)
-    description = models.CharField(max_length=100)
+    description = models.TextField()
     link = models.URLField(max_length=200)
     uploader = models.ForeignKey(Account, on_delete=models.CASCADE)
     post_img = models.ImageField(upload_to='post_imgs')
