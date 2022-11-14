@@ -5,10 +5,8 @@ class Account(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=100)
     account_img = models.ImageField(upload_to='profiles_imgs')
-
-class FriendTable(models.Model):
-    people1 = models.ForeignKey(Account, on_delete=models.CASCADE)
-    people2 = models.ForeignKey(Account, on_delete=models.CASCADE)
+    follow_set = models.ManyToManyField('self', blank = True)
+    following_set = models.ManyToManyField('self', blank = True)
 
 class Post(models.Model):
     name = models.CharField(max_length=50)
@@ -17,4 +15,6 @@ class Post(models.Model):
     uploader = models.ForeignKey(Account, on_delete=models.CASCADE)
     like = models.ManyToManyField(Account)
     post_img = models.ImageField(upload_to='post_imgs')
+    created_dt = models.DateTimeField(auto_now_add = True)
+    modified_dt = models.DateTimeField(auto_now = True)
 
