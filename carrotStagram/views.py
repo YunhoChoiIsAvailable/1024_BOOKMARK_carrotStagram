@@ -1,8 +1,9 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
+from django.views.generic import *
 from carrotStagram.models import *
 
 # Create your views here.
-def login(request):
+def loginView(request):
     if request.method == 'GET':
         return render(request, 'carrotStagram/login.html')
     elif request.method == 'POST':
@@ -23,4 +24,26 @@ def login(request):
         except:
             error_message['error']='올바르지 않은 id/pw입니다'
     return render(request,'carrotStagram/login.html', error_message)
+
+def settingView(request):
+    pass
+
+class FriendView(ListView):
+    pass
+
+class FeedView(ListView):
+    pass
+
+class MyPageView(DetailView):
+    pass
+
+class PostDetailView(DetailView):
+    pass
+
+class FollowingView(ListView):
+    pass
+
+class FollowerView(ListView):
+    pass
+
 
