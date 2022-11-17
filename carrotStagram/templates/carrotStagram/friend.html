@@ -2,11 +2,13 @@
 
 {% block content %}
 <div>
+    <h1>A</h1>
     <h1>{{object.name}}</h1>
     <p>{{object.description}}</p>
+    posts
     {% for post in posts %}
         {{post.name}}
         {{post.description}}
     {%endfor%}
 </div>
-{% block content %}
+{% endblock %}

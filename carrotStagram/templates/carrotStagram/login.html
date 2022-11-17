@@ -48,9 +48,9 @@
     <h1>CarrotStagram</h1>
     <form method="post">
         {% csrf_token %}
-        <input type="text", placeholder="id", name="accountname"><br>
-        <input type="password", placeholder="password", name="accountpw"><br>
-        <!--<h6>{{error}}</h6>-->
+        <input type="text", placeholder="id", name="username"><br>
+        <input type="password", placeholder="password", name="userpw"><br>
+        <h6>{{error}}</h6>
         <input type="submit" value="LogIn">
     </form>
 </div>
