@@ -38,8 +38,9 @@ def get_friend_posts():
 
 class FriendView(TemplateView):
     template_name = 'carrotStagram/friend.html'
-    def get(self, request):
-        id = request.session['user']
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        id = self.request.session['user']
         account = Account.objects.get(pk=id)
         posts = []
         for follow_account in account.follows.all():
@@ -47,8 +48,8 @@ class FriendView(TemplateView):
                 posts.append(post)
         posts = sorted(posts, key = (lambda post : post.modified_dt))
         print(posts)
-        context = {'posts' : posts}
-        return self.render_to_response(context)
+        context['posts'] = posts
+        return context
 
 class FeedView(ListView):
     pass
