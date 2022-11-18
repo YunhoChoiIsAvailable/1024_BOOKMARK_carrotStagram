@@ -58,11 +58,31 @@ class FriendView(TemplateView):
         context['posts'] = posts
         return context
 
-class FeedView(ListView):
-    pass
+class FeedView(TemplateView):
+    template_name = 'carrotStagram/feed.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        id = self.request.session['user']
+        account = Account.objects.get(pk=id)
+        posts = Post.objects.all()
+        posts = sorted(posts, key=(lambda post: post.modified_dt))
+        print(posts)
+        context['posts'] = posts
+        context['account'] = account
+        return context
 
-class MyPageView(DetailView):
-    pass
+class MyPageView(TemplateView):
+    template_name = 'carrotStagram/mypage.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        id = self.request.session['user']
+        account = Account.objects.get(pk=id)
+        posts = account.post_set.all()
+        posts = sorted(posts, key=(lambda post: post.modified_dt))
+        print(posts)
+        context['posts'] = posts
+        context['account'] = account
+        return context
 
 class PostDetailView(DetailView):
     template_name = 'carrotStagram/postdetails.html'
