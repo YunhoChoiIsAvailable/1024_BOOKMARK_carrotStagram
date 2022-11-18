@@ -3,6 +3,10 @@ from django.views.generic import *
 from carrotStagram.models import *
 from django.contrib import auth
 
+def get_account_info(request):
+    id = request.session['user']
+    return Account.objects.get(pk = id)
+
 # Create your views here.
 def loginView(request):
     if request.method == 'GET':
@@ -35,8 +39,7 @@ class FriendView(TemplateView):
     template_name = 'carrotStagram/friend.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        id = self.request.session['user']
-        account = Account.objects.get(pk=id)
+        account = get_account_info(self.request)
         posts = []
         for follow_account in account.follows.all():
             for post in follow_account.post_set.all():
@@ -56,7 +59,13 @@ class PostDetailView(DetailView):
     pass
 
 class FollowingView(ListView):
-    pass
+    template_name = 'carrotStagram/following.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        account = get_account_info(self.request)
+        context['account'] = account
+
 
 class FollowerView(ListView):
     pass
