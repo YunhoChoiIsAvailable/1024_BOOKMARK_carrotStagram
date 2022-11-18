@@ -56,18 +56,35 @@ class MyPageView(DetailView):
     pass
 
 class PostDetailView(DetailView):
-    pass
+    template_name = 'carrotStagram/postdetails.html'
+    model = Post
 
-class FollowingView(ListView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        account = get_account_info(self.request)
+        context['account'] = account
+        return context
+
+class FollowingView(TemplateView):
     template_name = 'carrotStagram/following.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         account = get_account_info(self.request)
         context['account'] = account
+        context['followings'] = account.follows.all()
+        return context
 
 
-class FollowerView(ListView):
-    pass
+class FollowerView(TemplateView):
+    template_name = 'carrotStagram/follower.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        account = get_account_info(self.request)
+        context['account'] = account
+        context['followers'] = account.followers.all()
+        return context
+
 
 

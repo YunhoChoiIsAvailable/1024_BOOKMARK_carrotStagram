@@ -5,7 +5,7 @@ class Account(models.Model):
     name = models.CharField(max_length=50, unique=True)
     description = models.CharField(max_length=100)
     account_img = models.ImageField(upload_to='profiles_imgs', blank = True)
-    follows = models.ManyToManyField('self', blank = True, symmetrical=False, related_name='account_followers')
+    follows = models.ManyToManyField('self', blank = True, symmetrical=False, related_name='followers')
     password = models.CharField(max_length=50, blank = False, default='0000')
 
     def __str__(self):
