@@ -33,12 +33,18 @@
     input{
         padding: 5px;
         margin: 5.2px;
+        background-color: white;
+        border-color: whitesmoke;
+        border-radius: 7px;
     }
     @media (max-width: 700px) {
         div {
             margin: 0 auto;
             width: auto;
         }
+    }
+    h6 {
+        color:red;
     }
     </style>
 </head>
@@ -50,8 +56,8 @@
         {% csrf_token %}
         <input type="text", placeholder="id", name="username"><br>
         <input type="password", placeholder="password", name="userpw"><br>
-        <h6>{{error}}</h6>
         <input type="submit" value="LogIn">
+        <h6>{{error}}</h6>
     </form>
 </div>
 </body>

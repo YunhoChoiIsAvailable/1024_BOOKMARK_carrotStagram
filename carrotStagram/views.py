@@ -30,11 +30,6 @@ def loginView(request):
 def settingView(request):
     id = request.session['user']
 
-def get_friend_list():
-    pass
-
-def get_friend_posts():
-    pass
 
 class FriendView(TemplateView):
     template_name = 'carrotStagram/friend.html'

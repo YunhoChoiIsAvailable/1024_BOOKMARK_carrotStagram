@@ -8,6 +8,9 @@ class Account(models.Model):
     follows = models.ManyToManyField('self', blank = True, symmetrical=False, related_name='account_followers')
     password = models.CharField(max_length=50, blank = False, default='0000')
 
+    def __str__(self):
+        return self.name
+
 
 class Post(models.Model):
     name = models.CharField(max_length=50)
@@ -18,17 +21,29 @@ class Post(models.Model):
     created_dt = models.DateTimeField(auto_now_add = True)
     modified_dt = models.DateTimeField(auto_now = True)
 
+    def __str__(self):
+        return self.name
+
 class Likes(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     count = models.IntegerField()
     people = models.ManyToManyField(Account)
+
+    def __str__(self):
+        return str(self.post) + ' : ' + str(self.count)
 
 class Comments(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     person = models.ManyToManyField(Account)
     content = models.CharField(max_length=500)
 
+    def __str__(self):
+        return str(self.person) + ' -> ' + str(self.post)
+
 class CommentLikes(models.Model):
     comment = models. ForeignKey(Comments, on_delete=models.CASCADE)
     people = models.ManyToManyField(Account)
     count = models.IntegerField()
+
+    def __str__(self):
+        return str(self.comment) + ' : ' + str(self.count)
