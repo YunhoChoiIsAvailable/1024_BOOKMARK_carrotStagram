@@ -2,3 +2,9 @@
 
 {% block content %}
 {% endblock %}
+
+{% block sidebar %}
+<a href = "{% url 'carrotstagram:friend' %}" >friend posts</a>
+<a href = "{% url 'carrotstagram:feed' %}" >feed</a>
+<a href = "{% url 'carrotstagram:mypage' %}" >mypage</a>
+{% endblock %}
