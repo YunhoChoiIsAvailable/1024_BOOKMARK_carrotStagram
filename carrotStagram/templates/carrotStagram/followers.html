@@ -2,7 +2,7 @@
 
 {% block content %}
 <div>
-    {% for follower in object %}
+    {% for follower in followers %}
     <h1>{{follower.name}}</h1>
     <p>{{follower.description}}</p>
     {% endfor %}

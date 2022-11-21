@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.views.generic import *
 from carrotStagram.models import *
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import auth
 
 def get_account_info(request):
@@ -10,6 +11,8 @@ def get_account_info(request):
 # Create your views here.
 def loginView(request):
     if request.method == 'GET':
+        if 'user' in request.session.keys():
+            return HttpResponseRedirect(reverse('carrotstagram:friend'))
         return render(request, 'carrotStagram/login.html')
     elif request.method == 'POST':
         username = request.POST.get('username', None)
@@ -37,6 +40,12 @@ def settingView(request):
 
 class FriendView(TemplateView):
     template_name = 'carrotStagram/friend.html'
+
+    def get(self, request, *args, **kwargs):
+        if 'user' not in request.session.keys():
+            return HttpResponseRedirect(reverse('carrotstagram:login'))
+        ret = super().get(request, *args, **kwargs)
+        return ret
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         account = get_account_info(self.request)
@@ -51,6 +60,12 @@ class FriendView(TemplateView):
 
 class FeedView(TemplateView):
     template_name = 'carrotStagram/feed.html'
+
+    def get(self, request, *args, **kwargs):
+        if 'user' not in request.session.keys():
+            return HttpResponseRedirect(reverse('carrotstagram:login'))
+        ret = super().get(request, *args, **kwargs)
+        return ret
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         id = self.request.session['user']
@@ -64,6 +79,12 @@ class FeedView(TemplateView):
 
 class MyPageView(TemplateView):
     template_name = 'carrotStagram/mypage.html'
+
+    def get(self, request, *args, **kwargs):
+        if 'user' not in request.session.keys():
+            return HttpResponseRedirect(reverse('carrotstagram:login'))
+        ret = super().get(request, *args, **kwargs)
+        return ret
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         id = self.request.session['user']
@@ -79,6 +100,11 @@ class PostDetailView(DetailView):
     template_name = 'carrotStagram/postdetails.html'
     model = Post
 
+    def get(self, request, *args, **kwargs):
+        if 'user' not in request.session.keys():
+            return HttpResponseRedirect(reverse('carrotstagram:login'))
+        ret = super().get(request, *args, **kwargs)
+        return ret
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         account = get_account_info(self.request)
@@ -88,6 +114,11 @@ class PostDetailView(DetailView):
 class FollowingView(TemplateView):
     template_name = 'carrotStagram/following.html'
 
+    def get(self, request, *args, **kwargs):
+        if 'user' not in request.session.keys():
+            return HttpResponseRedirect(reverse('carrotstagram:login'))
+        ret = super().get(request, *args, **kwargs)
+        return ret
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         account = get_account_info(self.request)
@@ -99,6 +130,11 @@ class FollowingView(TemplateView):
 class FollowerView(TemplateView):
     template_name = 'carrotStagram/follower.html'
 
+    def get(self, request, *args, **kwargs):
+        if 'user' not in request.session.keys():
+            return HttpResponseRedirect(reverse('carrotstagram:login'))
+        ret = super().get(request, *args, **kwargs)
+        return ret
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         account = get_account_info(self.request)
