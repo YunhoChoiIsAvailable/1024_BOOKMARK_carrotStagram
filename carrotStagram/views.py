@@ -37,6 +37,14 @@ def loginView(request):
 def settingView(request):
     id = request.session['user']
 
+def post_like(request, pk):
+    pass
+
+def comment_like(request):
+    pass
+
+def comment_add(request):
+    pass
 
 class FriendView(TemplateView):
     template_name = 'carrotStagram/friend.html'
