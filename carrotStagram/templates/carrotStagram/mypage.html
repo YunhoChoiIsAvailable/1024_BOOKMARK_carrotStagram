@@ -1,13 +1,22 @@
 {% extends 'carrotBase.html' %}
 
+
+{% block title %}
+My Page
+{% endblock %}
+
+
 {% block content %}
-<div>
+<!--<div>
     <h1>{{account.name}}</h1>
     <p>{{account.description}}</p>
 
     {% for post in posts %}
+  <div>
         <h1>{{post.name}}</h1>
         <p>{{post.description}}</p>
     {%endfor%}
+  </div>
 </div>
+-->
 {% endblock %}
