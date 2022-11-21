@@ -26,7 +26,7 @@ class Post(models.Model):
 
 class Likes(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    count = models.IntegerField()
+    count = models.IntegerField(default=0)
     people = models.ManyToManyField(Account)
 
     def __str__(self):
@@ -41,9 +41,9 @@ class Comments(models.Model):
         return str(self.person) + ' -> ' + str(self.post)
 
 class CommentLikes(models.Model):
-    comment = models. ForeignKey(Comments, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comments, on_delete=models.CASCADE)
     people = models.ManyToManyField(Account)
-    count = models.IntegerField()
+    count = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.comment) + ' : ' + str(self.count)
