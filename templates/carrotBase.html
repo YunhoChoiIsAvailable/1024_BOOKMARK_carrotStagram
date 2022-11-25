@@ -240,12 +240,18 @@ body {
   width: 300px;
   border: 1px solid black;
   padding: 50px;
-  margin: 20px;
+  margin: 100px;
   align-items: center;
 }
 .pos{
   align-items: center;
 }
+
+h1{
+background-color : whitesmoke;
+padding : 50px
+}
+
 
 </style>
 
@@ -337,11 +343,10 @@ body {
   <div class="container-fluid d-flex align-items-center">
     <h1 class="d-flex align-items-center fs-4 text-white mb-0">
       <!--<img src="../assets/brand/bootstrap-logo-white.svg" width="38" height="30" class="me-3" alt="Bootstrap">-->
-      CarrotStagram
+      CarrotStagram : {% block title %}block title
+      {% endblock %}
     </h1>
 
-            <h2 class="sticky-xl-top fw-bold pt-3 pt-xl-5 pb-2 pb-xl-3">{% block title %}block title
-      {% endblock %}</h2>
 
     <aside class="bd-aside sticky-xl-top text-muted align-self-start mb-3 mb-xl-5 px-2">
   <h2 class="h6 pt-4 pb-3 mb-4 border-bottom" align="right">Shortcuts</h2>
