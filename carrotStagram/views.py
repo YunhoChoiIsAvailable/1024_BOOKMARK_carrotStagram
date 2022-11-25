@@ -1,8 +1,13 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.views.generic import *
 from carrotStagram.models import *
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib import auth
+
+def logincheck(f):
+    def func(request, *args, **kwargs):
+        if 'user' not in request.session.keys():
+            return HttpResponseRedirect(reverse('carrotstagram:login'))
+        return f(request, *args, **kwargs)
+    return func
 
 def get_account_info(request):
     id = request.session['user']
@@ -18,7 +23,7 @@ def loginView(request):
         username = request.POST.get('username', None)
         password = request.POST.get('userpw', None)
 
-    print(username, password)
+    print(username, password) # 디버깅용 코드
     error_message = {}
     if not (username and password):
         error_message['error'] = "올바르지 않은 id/pw입니다"
@@ -34,15 +39,51 @@ def loginView(request):
             error_message['error']='올바르지 않은 id/pw입니다'
     return render(request,'carrotStagram/login.html', error_message)
 
+
 def settingView(request):
     id = request.session['user']
 
+
+def likemodify(like, account):
+    '''
+    밑에 2개 함수에서 쓰임
+    :param like:
+    :param account:
+    :return:
+    '''
+    if account in like.people.all():
+        like.count -= 1
+        like.people.remove(account.pk)
+    else:
+        like.count += 1
+        like.people.add(account.pk)
+    return like
+
+@logincheck
 def post_like(request, pk):
-    pass
+    account = get_account_info(request)
+    post = Post.objects.get(pk=pk)
+    likes = post.likes_set.all()
+    if likes.count() == 0:
+        like = post.likes_set.create(count=1, people=account.pk)
+    else:
+        like = likemodify(likes[0], account)
+    like.save()
+    return HttpResponseRedirect(request.GET['next'])
 
-def comment_like(request):
-    pass
+@logincheck
+def comment_like(request, pk):
+    account = get_account_info(request)
+    comment = Comments.objects.get(pk = pk)
+    likes = comment.commentlikes_set.all()
+    if likes.count() == 0:
+        like = comment.commentlikes_set.add(count=1, people=account.pk)
+    else:
+        like = likemodify(likes[0], account)
+    like.save()
+    return HttpResponseRedirect(request.GET['next'])
 
+@logincheck
 def comment_add(request):
     pass
 
