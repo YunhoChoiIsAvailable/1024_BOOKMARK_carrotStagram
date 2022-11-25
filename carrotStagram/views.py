@@ -61,7 +61,7 @@ class FriendView(TemplateView):
         for follow_account in account.follows.all():
             for post in follow_account.post_set.all():
                 posts.append(post)
-        posts = sorted(posts, key = (lambda post : post.modified_dt))
+        posts = sorted(posts, key=(lambda post : post.modified_dt))
         print(posts)
         context['posts'] = posts
         return context

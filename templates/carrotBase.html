@@ -235,6 +235,18 @@ body {
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
+
+.post {
+  width: 300px;
+  border: 1px solid black;
+  padding: 50px;
+  margin: 20px;
+  align-items: center;
+}
+.pos{
+  align-items: center;
+}
+
 </style>
 
 <script>
@@ -314,8 +326,9 @@ body {
 
 </script>
 
-    
     <!-- Custom styles for this template -->
+<html>
+  <head>
     <link href="cheatsheet.css" rel="stylesheet">
   </head>
   <body class="bg-light">
@@ -326,21 +339,29 @@ body {
       <!--<img src="../assets/brand/bootstrap-logo-white.svg" width="38" height="30" class="me-3" alt="Bootstrap">-->
       CarrotStagram
     </h1>
+
+            <h2 class="sticky-xl-top fw-bold pt-3 pt-xl-5 pb-2 pb-xl-3">{% block title %}block title
+      {% endblock %}</h2>
+
+    <aside class="bd-aside sticky-xl-top text-muted align-self-start mb-3 mb-xl-5 px-2">
+  <h2 class="h6 pt-4 pb-3 mb-4 border-bottom" align="right">Shortcuts</h2>
+<div align="right"><a class="d-inline-flex align-items-center rounded text-decoration-none" href="{% url 'carrotstagram:friend' %}">Friend Posts</a></div>
+<div align="right"><a class="d-inline-flex align-items-center rounded text-decoration-none" href="{% url 'carrotstagram:feed' %}">Feed</a></div>
+<div align="right"><a class="d-inline-flex align-items-center rounded text-decoration-none" href="{% url 'carrotstagram:mypage' %}">My Page</a></div>
+</aside>
+
     <!--<a href="../examples/cheatsheet-rtl/" class="ms-auto link-light" hreflang="ar">RTL cheatsheet</a>-->
   </div>
 </header>
-<aside class="bd-aside sticky-xl-top text-muted align-self-start mb-3 mb-xl-5 px-2">
-  <h2 class="h6 pt-4 pb-3 mb-4 border-bottom">Shortcuts</h2>
-          <li class="my-2"><a class="d-inline-flex align-items-center rounded text-decoration-none" href="{% url 'carrotstagram:friend' %}">Friend Posts</a></li>
-          <li class="my-2"><a class="d-inline-flex align-items-center rounded text-decoration-none" href="{% url 'carrotstagram:feed' %}">Feed</a></li>
-          <li class="my-2"><a class="d-inline-flex align-items-center rounded text-decoration-none" href="{% url 'carrotstagram:mypage' %}">My Page</a></li>
-</aside>
+
 <div class="bd-cheatsheet container-fluid bg-body">
   <section id="content">
-    <h2 class="sticky-xl-top fw-bold pt-3 pt-xl-5 pb-2 pb-xl-3">{% block title %}block title
-      {% endblock %}</h2>
 
-{% for post in PostList %}
+
+    {% block content %}
+    {% for post in posts %}
+    <div align="center">
+    <div class="post">
     <article class="my-3" id="typography">
       <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2">
         
@@ -349,15 +370,14 @@ body {
         <a class="d-flex align-items-center" href="{{post.link}}">구매링크</a>
       </div>
 
-      <div>
-        <div class="bd-example-snippet bd-code-snippet"><div class="bd-example">
+        <div class="bd-example-snippet bd-code-snippet">
+          <div class="bd-example">
         <p class="display-4">{{post.name}}</p>
-
-        </div></div>
+          </div>
+        </div>
 
 
         <div class="bd-example-snippet bd-code-snippet"><div class="bd-example">
-
         <p class="h5">{{post.modified_dt}}</p>
         </div></div>
 
@@ -372,21 +392,26 @@ body {
             {{post.description}}
           </p>
           </div>
-
-
         </div>
-
       </div>
+
+
     </article>
-  {% endfor %}
-    
+
+    </div>
+    </div>
+
+    {% endfor %}
+    {% endblock %}
+
   </section>
 
   
 
 
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="cheatsheet.js"></script>
 
-      <script src="cheatsheet.js"></script>
+  </div>
   </body>
 </html>

@@ -15,7 +15,7 @@ urlpatterns = [
     path('feed/', FeedView.as_view(), name='feed'),
 
     #좋아요, 댓글 기능 구현에 필요
-    path('post/like/<int:pk>', name='post_like'),
-    path('comment/like/<int:pk>', name='comment_like'),
-    path('commend/add/<int:pk>', name='comment_add'),
+    #path('post/like/<int:pk>', name='post_like'),
+    #path('comment/like/<int:pk>', name='comment_like'),
+    #path('commend/add/<int:pk>', name='comment_add'),
 ]
