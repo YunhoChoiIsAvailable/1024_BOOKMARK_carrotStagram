@@ -2,9 +2,9 @@
 
 {% block content %}
 <div>
-    {% for follower in followers %}
+{% for follower in followers %}
     <h1>{{follower.name}}</h1>
     <p>{{follower.description}}</p>
-    {% endfor %}
+{% endfor %}
 </div>
 {% endblock %}

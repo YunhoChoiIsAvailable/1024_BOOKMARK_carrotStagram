@@ -4,7 +4,6 @@ from django.db import models
 class Account(models.Model):
     name = models.CharField(max_length=50, unique=True)
     description = models.CharField(max_length=100)
-    account_img = models.ImageField(upload_to='profiles_imgs', blank = True)
     follows = models.ManyToManyField('self', blank = True, symmetrical=False, related_name='followers')
     password = models.CharField(max_length=50, blank = False, default='0000')
 
@@ -17,7 +16,6 @@ class Post(models.Model):
     description = models.TextField()
     link = models.URLField(max_length=200, blank = True)
     uploader = models.ForeignKey(Account, on_delete=models.CASCADE)
-    post_img = models.ImageField(upload_to='post_imgs')
     created_dt = models.DateTimeField(auto_now_add = True)
     modified_dt = models.DateTimeField(auto_now = True)
 

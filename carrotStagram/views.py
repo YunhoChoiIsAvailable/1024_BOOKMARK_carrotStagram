@@ -39,9 +39,18 @@ def loginView(request):
             error_message['error']='올바르지 않은 id/pw입니다'
     return render(request,'carrotStagram/login.html', error_message)
 
+@logincheck
+def logout(request):
+    del request.session['user']
+    return HttpResponseRedirect(reverse('carrotstagram:login'))
 
+@logincheck
 def settingView(request):
     id = request.session['user']
+    context = {}
+    context['account'] = get_account_info(request)
+    return render(request, 'carrotStagram/settings.html' , context)
+
 
 
 def likemodify(like, account):
@@ -85,7 +94,8 @@ def comment_like(request, pk):
 
 @logincheck
 def comment_add(request):
-    pass
+    if request.method == 'POST':
+        pass
 
 class FriendView(TemplateView):
     template_name = 'carrotStagram/friend.html'
@@ -177,7 +187,7 @@ class FollowingView(TemplateView):
 
 
 class FollowerView(TemplateView):
-    template_name = 'carrotStagram/follower.html'
+    template_name = 'carrotStagram/followers.html'
 
     def get(self, request, *args, **kwargs):
         if 'user' not in request.session.keys():

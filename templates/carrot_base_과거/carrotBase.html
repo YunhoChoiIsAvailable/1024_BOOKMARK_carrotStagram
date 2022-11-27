@@ -1,0 +1,424 @@
+<!doctype html>
+
+<style>
+body {
+  scroll-behavior: smooth;
+}
+
+/**
+ * Bootstrap "Journal code" icon
+ * @link https://icons.getbootstrap.com/icons/journal-code/
+ */
+.bd-heading a::before {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: .25rem;
+  content: "";
+
+  background-size: 1em;
+}
+
+/* stylelint-disable-next-line selector-max-universal */
+.bd-heading + div > * + * {
+  margin-top: 3rem;
+}
+
+/* Table of contents */
+.bd-aside a {
+  padding: .1875rem .5rem;
+  margin-top: .125rem;
+  margin-left: .3125rem;
+  color: rgba(0, 0, 0, .65);
+}
+
+.bd-aside a:hover,
+.bd-aside a:focus {
+  color: rgba(0, 0, 0, .85);
+  background-color: rgba(121, 82, 179, .1);
+}
+
+.bd-aside .active {
+  font-weight: 600;
+  color: rgba(0, 0, 0, .85);
+}
+
+.bd-aside .btn {
+  padding: .25rem .5rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, .65);
+}
+
+.bd-aside .btn:hover,
+.bd-aside .btn:focus {
+  color: rgba(0, 0, 0, .85);
+  background-color: rgba(121, 82, 179, .1);
+}
+
+.bd-aside .btn:focus {
+  box-shadow: 0 0 0 1px rgba(121, 82, 179, .7);
+}
+
+.bd-aside .btn::before {
+  width: 1.25em;
+  line-height: 0;
+  content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+  transition: transform .35s ease;
+
+  /* rtl:raw:
+  transform: rotate(180deg) translateX(-2px);
+  */
+  transform-origin: .5em 50%;
+}
+
+.bd-aside .btn[aria-expanded="true"]::before {
+  transform: rotate(90deg)/* rtl:ignore */;
+}
+
+
+/* Examples */
+.scrollspy-example {
+  height: 200px;
+}
+
+[id="modal"] .bd-example .btn,
+[id="buttons"] .bd-example .btn,
+[id="tooltips"] .bd-example .btn,
+[id="popovers"] .bd-example .btn,
+[id="dropdowns"] .bd-example .btn-group,
+[id="dropdowns"] .bd-example .dropdown,
+[id="dropdowns"] .bd-example .dropup,
+[id="dropdowns"] .bd-example .dropend,
+[id="dropdowns"] .bd-example .dropstart {
+  margin: 0 1rem 1rem 0;
+}
+
+/* Layout */
+@media (min-width: 1200px) {
+  body {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 4fr 1fr;
+    gap: 1rem;
+  }
+
+  .bd-header {
+    position: fixed;
+    top: 0;
+    /* rtl:begin:ignore */
+    right: 0;
+    left: 0;
+    /* rtl:end:ignore */
+    z-index: 1030;
+    grid-column: 1 / span 3;
+  }
+
+  .bd-aside,
+  .bd-cheatsheet {
+    padding-top: 4rem;
+  }
+
+  /**
+   * 1. Too bad only Firefox supports subgrids ATM
+   */
+  .bd-cheatsheet,
+  .bd-cheatsheet section,
+  .bd-cheatsheet article {
+    display: inherit; /* 1 */
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 4fr;
+    grid-column: 1 / span 2;
+    gap: inherit; /* 1 */
+  }
+
+  .bd-aside {
+    grid-area: 1 / 3;
+    scroll-margin-top: 4rem;
+  }
+
+  .bd-cheatsheet section,
+  .bd-cheatsheet section > h2 {
+    top: 2rem;
+    scroll-margin-top: 2rem;
+  }
+
+  .bd-cheatsheet section > h2::before {
+    position: absolute;
+    /* rtl:begin:ignore */
+    top: 0;
+    right: 0;
+    bottom: -2rem;
+    left: 0;
+    /* rtl:end:ignore */
+    z-index: -1;
+    content: "";
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) calc(100% - 3rem), rgba(255, 255, 255, .01));
+  }
+
+  .bd-cheatsheet article,
+  .bd-cheatsheet .bd-heading {
+    top: 8rem;
+    scroll-margin-top: 8rem;
+  }
+
+  .bd-cheatsheet .bd-heading {
+    z-index: 1;
+  }
+}
+
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.104.2">
+    <title>Cheatsheet · Bootstrap v5.2</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/cheatsheet/">
+
+    
+
+    
+
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+.post {
+  width: 300px;
+  border: 1px solid black;
+  padding: 50px;
+  margin: 100px;
+  align-items: center;
+}
+.pos{
+  align-items: center;
+}
+
+h1{
+background-color : whitesmoke;
+padding : 50px
+}
+
+
+</style>
+
+<script>
+  /* global bootstrap: false */
+
+(() => {
+  'use strict'
+
+  // Tooltip and popover demos
+  document.querySelectorAll('.tooltip-demo')
+    .forEach(tooltip => {
+      new bootstrap.Tooltip(tooltip, {
+        selector: '[data-bs-toggle="tooltip"]'
+      })
+    })
+
+  document.querySelectorAll('[data-bs-toggle="popover"]')
+    .forEach(popover => {
+      new bootstrap.Popover(popover)
+    })
+
+  document.querySelectorAll('.toast')
+    .forEach(toastNode => {
+      const toast = new bootstrap.Toast(toastNode, {
+        autohide: false
+      })
+
+      toast.show()
+    })
+
+  // Disable empty links and submit buttons
+  document.querySelectorAll('[href="#"], [type="submit"]')
+    .forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault()
+      })
+    })
+
+  function setActiveItem() {
+    const { hash } = window.location
+
+    if (hash === '') {
+      return
+    }
+
+    const link = document.querySelector(`.bd-aside a[href="${hash}"]`)
+
+    if (!link) {
+      return
+    }
+
+    const active = document.querySelector('.bd-aside .active')
+    const parent = link.parentNode.parentNode.previousElementSibling
+
+    link.classList.add('active')
+
+    if (parent.classList.contains('collapsed')) {
+      parent.click()
+    }
+
+    if (!active) {
+      return
+    }
+
+    const expanded = active.parentNode.parentNode.previousElementSibling
+
+    active.classList.remove('active')
+
+    if (expanded && parent !== expanded) {
+      expanded.click()
+    }
+  }
+
+  setActiveItem()
+  window.addEventListener('hashchange', setActiveItem)
+})()
+
+</script>
+
+    <!-- Custom styles for this template -->
+<html>
+  <head>
+    <link href="cheatsheet.css" rel="stylesheet">
+  </head>
+  <body class="bg-light">
+    
+<header class="bd-header bg-dark py-3 d-flex align-items-stretch border-bottom border-dark">
+  <div class="container-fluid d-flex align-items-center">
+    <h1 class="d-flex align-items-center fs-4 text-white mb-0">
+      <!--<img src="../assets/brand/bootstrap-logo-white.svg" width="38" height="30" class="me-3" alt="Bootstrap">-->
+      CarrotStagram : {% block title %}block title
+      {% endblock %}
+    </h1>
+
+
+    <aside class="bd-aside sticky-xl-top text-muted align-self-start mb-3 mb-xl-5 px-2">
+  <h2 class="h6 pt-4 pb-3 mb-4 border-bottom" align="right">Shortcuts</h2>
+<div align="right"><a class="d-inline-flex align-items-center rounded text-decoration-none" href="{% url 'carrotstagram:friend' %}">Friend Posts</a></div>
+<div align="right"><a class="d-inline-flex align-items-center rounded text-decoration-none" href="{% url 'carrotstagram:feed' %}">Feed</a></div>
+<div align="right"><a class="d-inline-flex align-items-center rounded text-decoration-none" href="{% url 'carrotstagram:mypage' %}">My Page</a></div>
+<div align="right"><a class="d-inline-flex align-items-center rounded text-decoration-none" href="{% url 'carrotstagram:logout' %}">Logout</a></div>
+</aside>
+
+    <!--<a href="../examples/cheatsheet-rtl/" class="ms-auto link-light" hreflang="ar">RTL cheatsheet</a>-->
+  </div>
+</header>
+
+<div class="bd-cheatsheet container-fluid bg-body">
+  <section id="content">
+
+
+    {% block content %}
+    {% for post in posts %}
+    <div align="center">
+    <div class="post">
+    <article class="my-3" id="typography">
+      <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2">
+        
+        <h3>{{post.uploader.name}}</h3>
+        <a href="{% url 'carrotstagram:post_like' post.pk %}">❤️</a>
+        <a class="d-flex align-items-center" href="{{post.link}}">구매링크</a>
+      </div>
+
+        <div class="bd-example-snippet bd-code-snippet">
+          <div class="bd-example">
+        <p class="display-4">{{post.name}}</p>
+          </div>
+        </div>
+
+
+        <div class="bd-example-snippet bd-code-snippet"><div class="bd-example">
+        <p class="h5">{{post.modified_dt}}</p>
+        </div></div>
+
+
+
+
+        <div class="bd-example-snippet bd-code-snippet"><div class="bd-example">
+        <svg class="bd-placeholder-img bd-placeholder-img-lg img-fluid" width="100%" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive image</text></svg>
+
+        <div class="bd-example-snippet bd-code-snippet"><div class="bd-example">
+          <p class="lead">
+            {{post.description}}
+          </p>
+          </div>
+        </div>
+      </div>
+
+
+    </article>
+
+    </div>
+    </div>
+
+    {% endfor %}
+    {% endblock %}
+
+  </section>
+</div>
+
+  
+
+
+  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="cheatsheet.js"></script>
+
+  </div>
+  </body>
+</html>

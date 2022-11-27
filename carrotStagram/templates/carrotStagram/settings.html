@@ -1,9 +1,26 @@
 {% extends 'carrotBase.html' %}
-
 {% block content %}
-<div>
-    <h1>{{object.name}}</h1>
-    <h2>setting1</h2>
-    <h2>setting2</h2>
-</div>
+{% endblock %}
+{% block myaccount %}
+<div class="bd-cheatsheet container-fluid bg-body">
+    <section id="account">
+        <h2 class="sticky-xl-top fw-bold pt-3 pt-xl-5 pb-2 pb-xl-3">{{ account.name }}</h2>
+        <article class="my-3" id="accountinfo">
+            <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2">
+            </div>
+            <div>
+                <div>
+                    <div>
+                        <br>
+
+                    </div>
+
+                </div>
+                비밀번호 : {{ account.password }}<br>
+                설명 : {{ account.description }}
+
+            </div>
+        </article>
+    </section>
+    </div>
 {% endblock %}
