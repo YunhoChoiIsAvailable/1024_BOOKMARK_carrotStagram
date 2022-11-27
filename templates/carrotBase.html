@@ -332,7 +332,7 @@
 {% block myaccount %}
     <div class="bd-cheatsheet container-fluid bg-body">
     <section id="account">
-        <h2 class="sticky-xl-top fw-bold pt-3 pt-xl-5 pb-2 pb-xl-3">{{ account.name }}</h2>
+        <h2 class="sticky-xl-top fw-bold pt-3 pt-xl-5 pb-2 pb-xl-3">@{{ account.name }}</h2>
         <article class="my-3" id="accountinfo">
             <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2">
                 <a href="{% url 'carrotstagram:follower' %}">follower</a>
@@ -364,7 +364,12 @@
                  <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2">
                      <h6>@{{ post.uploader.name }} </h6>
                      <h6>{{ post.modified_dt }}</h6>
-                     <a href="{% url 'carrotstagram:post_like' post.pk %}">❤️</a>
+
+                     <a href="{% url 'carrotstagram:post_like' post.pk %}?next={{ request.path }}">
+                     {% if post.notliked %}♡
+                     {% else %}♥
+                         {%  endif %}
+                     </a>
                     <a href="{{ post.link }}">구매 링크</a>
                 </div>
 

@@ -51,6 +51,13 @@ def settingView(request):
     context['account'] = get_account_info(request)
     return render(request, 'carrotStagram/settings.html' , context)
 
+def postnotliked(post, account):
+    likes = post.likes_set.all()
+    if likes.count() == 0:
+        return True
+    elif account in likes[0].people.all():
+        return False
+    return True
 
 
 def likemodify(like, account):
@@ -74,7 +81,9 @@ def post_like(request, pk):
     post = Post.objects.get(pk=pk)
     likes = post.likes_set.all()
     if likes.count() == 0:
-        like = post.likes_set.create(count=1, people=account.pk)
+        like = post.likes_set.create(count=0)
+        likes = [like]
+        like = likemodify(likes[0], account)
     else:
         like = likemodify(likes[0], account)
     like.save()
@@ -86,6 +95,8 @@ def comment_like(request, pk):
     comment = Comments.objects.get(pk = pk)
     likes = comment.commentlikes_set.all()
     if likes.count() == 0:
+        like = comment.likes_set.create(count=0)
+        likes = [like]
         like = comment.commentlikes_set.add(count=1, people=account.pk)
     else:
         like = likemodify(likes[0], account)
@@ -111,9 +122,10 @@ class FriendView(TemplateView):
         posts = []
         for follow_account in account.follows.all():
             for post in follow_account.post_set.all():
+                post.notliked = postnotliked(post, account)
                 posts.append(post)
         posts = sorted(posts, key=(lambda post : post.modified_dt))
-        print(posts)
+        posts = posts[-1::-1]
         context['posts'] = posts
         return context
 
@@ -131,7 +143,9 @@ class FeedView(TemplateView):
         account = Account.objects.get(pk=id)
         posts = Post.objects.all()
         posts = sorted(posts, key=(lambda post: post.modified_dt))
-        print(posts)
+        posts = posts[-1::-1]
+        for i in range(len(posts)):
+            posts[i].notliked = postnotliked(posts[i], account)
         context['posts'] = posts
         context['account'] = account
         return context
@@ -150,7 +164,9 @@ class MyPageView(TemplateView):
         account = Account.objects.get(pk=id)
         posts = account.post_set.all()
         posts = sorted(posts, key=(lambda post: post.modified_dt))
-        print(posts)
+        posts = posts[-1::-1]
+        for i in range(len(posts)):
+            posts[i].notliked = postnotliked(posts[i], account)
         context['posts'] = posts
         context['account'] = account
         return context
