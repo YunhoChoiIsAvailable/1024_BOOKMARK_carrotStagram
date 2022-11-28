@@ -358,7 +358,7 @@
 {% for post in posts %}
     <div class="bd-cheatsheet container-fluid bg-body">
     <section id="content">
-        <h3 class="sticky-xl-top fw-bold pt-3 pt-xl-5 pb-2 pb-xl-3">{{ post.name }}</h3>
+        <h3 class="sticky-xl-top fw-bold pt-3 pt-xl-5 pb-2 pb-xl-3"><a href="{% url 'carrotstagram:postdetail' post.pk %}">{{ post.name }}</a></h3>
 
             <article class="my-3" id="typography">
                  <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2">
@@ -389,6 +389,63 @@
     {% endfor %}
 {% endblock %}
 
+<!--comment-->
+{% block comment %}
+<div class="bd-cheatsheet container-fluid bg-body">
+    <section id="content">
+        <h4 class="sticky-xl-top fw-bold pt-3 pt-xl-5 pb-2 pb-xl-3">comments</h4>
+            {% for comment in comments %}
+            <article class="my-3" id="typography">
+                 <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2"
+                 <hr>
+                     <h6>@{{ comment.person.name }} </h6>
+
+                     <a href="{% url 'carrotstagram:comment_like' comment.pk %}?next={{ request.path }}">
+                     {% if comment.notliked %}♡
+                     {% else %}♥
+                         {%  endif %}
+                     </a>
+                </div>
+
+                <div>
+                    <div>
+
+                        <br>
+                        {{ comment.content }}
+
+                    </div>
+
+                </div>
+            </article>
+            {% endfor %}
+
+    <article class="my-3" id="typography">
+                 <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2">
+<hr>
+                     <h6>@{{ account.name }} </h6>
+                </div>
+
+                <div>
+                    <div>
+
+                        <br>
+                        <form method="post" action="{% url 'carrotstagram:comment_add' object.pk %}?next={{ request.path }}">
+                            {% csrf_token %}
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="commentinput" name="commentinput" aria-describedby="commenthelp" placeholder="댓글을 입력하세요">
+                </div>
+                            <button type="submit" class="btn btn-primary">게시</button>
+
+            </form>
+
+                    </div>
+
+                </div>
+            </article>
+
+    </section>
+    </div>
+{% endblock %}
 
 <div class="modal fade" id="exampleModalDefault" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">

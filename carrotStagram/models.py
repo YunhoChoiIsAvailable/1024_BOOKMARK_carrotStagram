@@ -32,7 +32,7 @@ class Likes(models.Model):
 
 class Comments(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    person = models.ManyToManyField(Account)
+    person = models.ForeignKey(Account, on_delete=models.CASCADE)
     content = models.CharField(max_length=500)
 
     def __str__(self):

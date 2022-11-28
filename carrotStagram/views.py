@@ -59,6 +59,13 @@ def postnotliked(post, account):
         return False
     return True
 
+def commentnotliked(comment, account):
+    likes = comment.commentlikes_set.all()
+    if likes.count() == 0:
+        return True
+    elif account in likes[0].people.all():
+        return False
+    return True
 
 def likemodify(like, account):
     '''
@@ -95,18 +102,24 @@ def comment_like(request, pk):
     comment = Comments.objects.get(pk = pk)
     likes = comment.commentlikes_set.all()
     if likes.count() == 0:
-        like = comment.likes_set.create(count=0)
+        like = comment.commentlikes_set.create(count=0)
         likes = [like]
-        like = comment.commentlikes_set.add(count=1, people=account.pk)
+        like = likemodify(likes[0], account)
     else:
         like = likemodify(likes[0], account)
     like.save()
     return HttpResponseRedirect(request.GET['next'])
 
 @logincheck
-def comment_add(request):
+def comment_add(request, pk):
     if request.method == 'POST':
-        pass
+        if len(request.POST['commentinput'])>500:
+            return HttpResponseRedirect(request.GET['next'])
+        account = get_account_info(request)
+        post = Post.objects.get(pk = pk)
+        comment = Comments(post = post, person = account, content = request.POST['commentinput'])
+        comment.save()
+        return HttpResponseRedirect(request.GET['next'])
 
 class FriendView(TemplateView):
     template_name = 'carrotStagram/friend.html'
@@ -184,6 +197,14 @@ class PostDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         account = get_account_info(self.request)
         context['account'] = account
+        context['comments'] = self.object.comments_set.all()
+        if context['comments'].count() > 0:
+            for i in range(len(context['comments'])):
+                context['comments'][i].notliked = commentnotliked(context['comments'][i], account)
+        else:
+            context['comments'] = []
+        context['posts'] = [self.object]
+        context['posts'][0].notliked = postnotliked(context['posts'][0], account)
         return context
 
 class FollowingView(TemplateView):
